@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{AF9504A8-0481-4AC1-975F-DBD867C9FF82}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>UnleashedDDD.Main</RootNamespace>
+    <AssemblyName>UnleashedDDD.Main</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Autofac">
+      <HintPath>..\packages\Autofac.3.3.0\lib\net40\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenDDD">
+      <HintPath>..\..\..\OpenSource\OpenDDD\src\OpenDDD\bin\Debug\OpenDDD.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AccountingProviderFactory.cs" />
+    <Compile Include="AutofacInstantiator.cs" />
+    <Compile Include="DomainAssemblyProvider.cs" />
+    <Compile Include="OrganizationContextFactory.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\UnleashedDDD.Infrastructure.InMemory.Multitenent\UnleashedDDD.Infrastructure.InMemory.Multitenent.csproj">
+      <Project>{44c0aed4-8f26-4bd8-bb9f-36c84a2d17e9}</Project>
+      <Name>UnleashedDDD.Infrastructure.InMemory.Multitenent</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnleashedDDD.QuickBooks\UnleashedDDD.QuickBooks.csproj">
+      <Project>{ed7d0f85-ca35-460b-ab37-72e1e3e9d962}</Project>
+      <Name>UnleashedDDD.QuickBooks</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnleashedDDD.Xero\UnleashedDDD.Xero.csproj">
+      <Project>{5d9325e0-ecf4-4cde-9030-f2e3cd22878d}</Project>
+      <Name>UnleashedDDD.Xero</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnleashedDDD\UnleashedDDD.csproj">
+      <Project>{f0444217-ddb0-43b2-85f7-f5106ae59801}</Project>
+      <Name>UnleashedDDD</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

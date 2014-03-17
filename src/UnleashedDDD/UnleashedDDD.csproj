@@ -1,0 +1,166 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F0444217-DDB0-43B2-85F7-F5106AE59801}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>UnleashedDDD</RootNamespace>
+    <AssemblyName>UnleashedDDD</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="OpenDDD">
+      <HintPath>..\..\..\OpenSource\OpenDDD\src\OpenDDD\bin\Debug\OpenDDD.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Accounting\AccountingFacade.cs" />
+    <Compile Include="Accounting\Application\AccountingService.cs" />
+    <Compile Include="Accounting\Application\ConfigurationService.cs" />
+    <Compile Include="Accounting\Application\EventHandlers\ExportSalesOrderWhenNewOrUpdated.cs" />
+    <Compile Include="Accounting\Application\EventHandlers\InitializeDefaultAccountingWhenOrganizationRegistered.cs" />
+    <Compile Include="Accounting\Application\Exceptions\AccountingConfigurationDoesNotExist.cs" />
+    <Compile Include="Accounting\Application\IConfigurationService.cs" />
+    <Compile Include="Accounting\Application\Model\ConfigurationModel.cs" />
+    <Compile Include="Accounting\Application\Model\SalesOrderExportModel.cs" />
+    <Compile Include="Accounting\Application\SalesOrderExportService.cs" />
+    <Compile Include="Accounting\Domain.Model\Configuration\Configuration.cs" />
+    <Compile Include="Accounting\Domain.Model\OrganizationId.cs" />
+    <Compile Include="Accounting\Port\IAccountingProvider.cs" />
+    <Compile Include="Accounting\Port\IAccountingProviderFactory.cs" />
+    <Compile Include="Accounting\Port\IConfigurationRepository.cs" />
+    <Compile Include="Accounting\Port\Model\ProviderAccount.cs" />
+    <Compile Include="Accounting\Port\Model\ProviderConfiguration.cs" />
+    <Compile Include="Accounting\Port\Model\ProviderTax.cs" />
+    <Compile Include="Inventory\Application\EventHandlers\NewWarehouseHandler.cs" />
+    <Compile Include="Inventory\Domain.Model\Warehouse\WarehouseCreated.cs" />
+    <Compile Include="Inventory\InventoryFacade.cs" />
+    <Compile Include="Inventory\Application\Commands\NewWarehouseCommand.cs" />
+    <Compile Include="Inventory\Application\Model\WarehouseModel.cs" />
+    <Compile Include="Inventory\Application\WarehouseService.cs" />
+    <Compile Include="Inventory\Port\IProductRepository.cs" />
+    <Compile Include="Inventory\Domain.Model\Product\ProductDoesNotExist.cs" />
+    <Compile Include="Inventory\Domain.Model\Product\ProductId.cs" />
+    <Compile Include="Inventory\Domain.Model\Product\ProductName.cs" />
+    <Compile Include="Inventory\Domain.Model\Product\Product.cs" />
+    <Compile Include="Inventory\Domain.Model\Stock\StockId.cs" />
+    <Compile Include="Inventory\Domain.Model\Stock\StockQuantityDecreased.cs" />
+    <Compile Include="Inventory\Domain.Model\Stock\StockQuantityIncreased.cs" />
+    <Compile Include="Inventory\Domain.Model\Stock\NegativeStockQuantityNotAllowed.cs" />
+    <Compile Include="Inventory\Domain.Model\Stock\StockQuantity.cs" />
+    <Compile Include="Inventory\Domain.Model\Stock\Stock.cs" />
+    <Compile Include="Inventory\Domain.Model\Warehouse\WarehouseId.cs" />
+    <Compile Include="Inventory\Port\IWarehouseRepository.cs" />
+    <Compile Include="Inventory\Domain.Model\Warehouse\WarehouseName.cs" />
+    <Compile Include="Inventory\Domain.Model\Warehouse\Warehouse.cs" />
+    <Compile Include="Inventory\Application\EventHandlers\SalesOrderCompletionStartedHandler.cs" />
+    <Compile Include="Organizations\Domain.Model\Organization\Plans\Business.cs" />
+    <Compile Include="Organizations\Domain.Model\Organization\Plans\Demo.cs" />
+    <Compile Include="Organizations\Domain.Model\Organization\Plans\Enterprise.cs" />
+    <Compile Include="Organizations\Domain.Model\Organization\Plans\Lite.cs" />
+    <Compile Include="Organizations\Domain.Model\Organization\Plans\Plan.cs" />
+    <Compile Include="Organizations\Domain.Model\Organization\Plans\Professional.cs" />
+    <Compile Include="Organizations\OrganizationsFacade.cs" />
+    <Compile Include="Organizations\Application\Commands\NewOrganizationCommand.cs" />
+    <Compile Include="Organizations\Application\Exceptions\UserWithEmailIsAlreadyRegistered.cs" />
+    <Compile Include="Organizations\Application\Results\NewOrganizationResult.cs" />
+    <Compile Include="Organizations\Application\Commands\NewUserCommand.cs" />
+    <Compile Include="Organizations\Application\RegisterNewOrganizationService.cs" />
+    <Compile Include="Organizations\Application\RegisterNewUserService.cs" />
+    <Compile Include="Organizations\Domain.Model\Organization\Organization.cs" />
+    <Compile Include="Organizations\Domain.Model\Organization\OrganizationId.cs" />
+    <Compile Include="Organizations\Domain.Model\Organization\OrganizationName.cs" />
+    <Compile Include="Organizations\Domain.Model\Organization\OrganizationRegistered.cs" />
+    <Compile Include="Organizations\Domain.Model\Organization\OrganizationState.cs" />
+    <Compile Include="Organizations\Domain.Model\User\User.cs" />
+    <Compile Include="Organizations\Domain.Model\User\UserEmail.cs" />
+    <Compile Include="Organizations\Domain.Model\User\UserId.cs" />
+    <Compile Include="Organizations\Port\IOrganizationRepository.cs" />
+    <Compile Include="Organizations\Port\IUserByEmailQueryRetriever.cs" />
+    <Compile Include="Organizations\Port\IUserByOrganizationQueryRetriever.cs" />
+    <Compile Include="Organizations\Port\IUserRepository.cs" />
+    <Compile Include="Organizations\Port\Model\UserQueryResult.cs" />
+    <Compile Include="Sales\Application\Commands\RemoveSalesOrderLineCommand.cs" />
+    <Compile Include="Sales\Port\IAccountingSalesTaxes.cs" />
+    <Compile Include="Sales\Domain.Model\SalesTax.cs" />
+    <Compile Include="Sales\SalesFacade.cs" />
+    <Compile Include="Sales\Application\Commands\NewSalesOrderCommand.cs" />
+    <Compile Include="Sales\Application\Commands\NewSalesOrderLineCommand.cs" />
+    <Compile Include="Sales\Application\Model\NewSalesOrderModel.cs" />
+    <Compile Include="Sales\Application\SalesOrderService.cs" />
+    <Compile Include="Sales\Domain.Model\SalesOrder\Events\SalesOrderWarehouseChanged.cs" />
+    <Compile Include="Sales\Domain.Model\Accountant\AccountantId.cs" />
+    <Compile Include="Sales\Domain.Model\Customer\Customer.cs" />
+    <Compile Include="Sales\Domain.Model\Customer\CustomerId.cs" />
+    <Compile Include="Sales\Domain.Model\SalesOrder\Exceptions\FinishCompletingIsNotAllowedForCurrentState.cs" />
+    <Compile Include="Sales\Port\ISalesOrderRepository.cs" />
+    <Compile Include="Sales\Domain.Model\SalesOrder\Exceptions\LineDoesNotExist.cs" />
+    <Compile Include="Sales\Domain.Model\SalesOrder\Lines.cs" />
+    <Compile Include="Sales\Domain.Model\SalesOrder\LineStatus.cs" />
+    <Compile Include="Sales\Domain.Model\SalesOrder\Exceptions\NoLine.cs" />
+    <Compile Include="Sales\Domain.Model\SalesOrder\Exceptions\OrderContainsUnallocatedLines.cs" />
+    <Compile Include="Sales\Domain.Model\SalesOrder\Events\SalesOrderCompleted.cs" />
+    <Compile Include="Sales\Application\EventHandlers\SalesOrder\SalesOrderCompletionHandler.cs" />
+    <Compile Include="Sales\Domain.Model\ProductId.cs" />
+    <Compile Include="Sales\Domain.Model\Quantity.cs" />
+    <Compile Include="Sales\Domain.Model\SalesOrder\Comment.cs" />
+    <Compile Include="Sales\Domain.Model\SalesOrder\Line.cs" />
+    <Compile Include="Sales\Domain.Model\SalesOrder\LineId.cs" />
+    <Compile Include="Sales\Domain.Model\SalesOrder\SalesOrder.cs" />
+    <Compile Include="Sales\Domain.Model\SalesOrder\Events\SalesOrderCompletionStarted.cs" />
+    <Compile Include="Sales\Domain.Model\SalesOrder\Events\SalesOrderCreated.cs" />
+    <Compile Include="Sales\Domain.Model\SalesOrder\Exceptions\MultipleCurrenciesNotSupported.cs" />
+    <Compile Include="Sales\Domain.Model\SalesOrder\Id.cs" />
+    <Compile Include="Sales\Domain.Model\SalesOrder\Exceptions\StatusDoesNotAllowChangingState.cs" />
+    <Compile Include="Sales\Domain.Model\SalesOrder\Status.cs" />
+    <Compile Include="Sales\Domain.Model\SalesOrder\Totals.cs" />
+    <Compile Include="Sales\Domain.Model\SalesOrder\UnitPrice.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestingImmdediateHandler.cs" />
+    <Compile Include="UnleashedCore.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Accounting\Application\Commands\" />
+    <Folder Include="Accounting\Domain.Model\MasterData\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

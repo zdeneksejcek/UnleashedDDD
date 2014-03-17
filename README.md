@@ -1,4 +1,3 @@
 UnleashedDDD
 ============
-
-Inventory management domain modeled with Domain Driven Design
+Inventory management domain modeled with Domain Driven Design.
