@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac">
+      <HintPath>..\packages\Autofac.3.3.0\lib\net40\Autofac.dll</HintPath>
+    </Reference>
     <Reference Include="Moq">
       <HintPath>..\packages\Moq.4.2.1402.2112\lib\net40\Moq.dll</HintPath>
     </Reference>
@@ -48,16 +51,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CoreInitializer.cs" />
     <Compile Include="Inventory\Application\WarehouseServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sales\Application\SalesOrderServiceTests.cs" />
     <Compile Include="Sales\Domain.Model\SalesOrderTests.cs" />
+    <Compile Include="Stubs\AccountingProviderFactory.cs" />
+    <Compile Include="Stubs\ConfigurationRepositoryStub.cs" />
+    <Compile Include="Stubs\OrganizationRepository.cs" />
     <Compile Include="Stubs\ProductRepositoryStub.cs" />
     <Compile Include="Stubs\SalesOrderRepositoryStub.cs" />
     <Compile Include="Stubs\SalesTaxesProviderStub.cs" />
     <Compile Include="Stubs\UserByEmailQueryRetrieverStub.cs" />
+    <Compile Include="Stubs\UserByOrganizationQueryRetriever.cs" />
     <Compile Include="Stubs\UserRepositoryStub.cs" />
     <Compile Include="Stubs\WarehouseRepositoryStub.cs" />
+    <Compile Include="TestBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

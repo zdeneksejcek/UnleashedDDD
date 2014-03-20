@@ -13,7 +13,7 @@ using UnleashedDDD.Tests.Stubs;
 namespace UnleashedDDD.Tests.Sales.Application
 {
     [TestFixture]
-    public class SalesOrderServiceTests
+    public class SalesOrderServiceTests : TestBase
     {
         private SalesOrder CreateSalesOrder()
         {
@@ -24,7 +24,7 @@ namespace UnleashedDDD.Tests.Sales.Application
 
         private Line AddLine(SalesOrder order)
         {
-            return order.AddLine(
+            return order.Lines.Add(
                 new ProductId(Guid.NewGuid()), 5,
                 new UnitPrice(5, Currency.NZD), new SalesTax(Guid.NewGuid(), 0.15M));
         }
@@ -49,6 +49,7 @@ namespace UnleashedDDD.Tests.Sales.Application
                 ShouldReturn = CreateSalesOrder()
             };
             var salesTaxProvider = new SalesTaxesProviderStub();
+            salesTaxProvider.ShouldReturn = new SalesTax(Guid.NewGuid(), 0.15M);
 
             var service = new SalesOrderService(repository, salesTaxProvider);
 
@@ -57,7 +58,7 @@ namespace UnleashedDDD.Tests.Sales.Application
                 Guid.NewGuid(),
                 5,
                 new MonetaryValue(5, Currency.NZD),
-                Guid.NewGuid());
+                salesTaxProvider.ShouldReturn.Id);
 
             service.AddLine(command);
 
@@ -98,7 +99,7 @@ namespace UnleashedDDD.Tests.Sales.Application
             var service = new SalesOrderService(repository, salesTaxProvider);
 
             // act
-            service.Complete(order.Id);
+            service.Complete(new CompleteSalesOrderCommand(order.Id));
 
             // assert
             Assert.IsTrue(repository.SaveHasBeenCalled);

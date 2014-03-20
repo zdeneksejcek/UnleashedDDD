@@ -1,6 +1,5 @@
 ﻿using System;
 using OpenDDD.Common;
-using UnleashedDDD.Sales.Domain.Model;
 
 namespace UnleashedDDD.Sales.Application.Commands
 {

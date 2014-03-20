@@ -9,7 +9,7 @@ using UnleashedDDD.Tests.Stubs;
 namespace UnleashedDDD.Tests.Inventory.Application
 {
     [TestFixture]
-    public class WarehouseServiceTests
+    public class WarehouseServiceTests : TestBase
     {
         private WarehouseService Service { get; set; }
         private WarehouseRepositoryStub Repository { get; set; }

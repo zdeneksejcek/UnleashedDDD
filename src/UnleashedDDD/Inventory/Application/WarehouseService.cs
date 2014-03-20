@@ -34,13 +34,10 @@ namespace UnleashedDDD.Inventory.Application
         public void IncreaseStockOnHand(Guid warehouseId, Guid productId, int quantity)
         {
             var warehouse = _repository.GetById(new WarehouseId(warehouseId));
-            var product = _productRepository.GetById(new ProductId(productId));
-
-            if (product == null)
-                throw new ProductDoesNotExist(productId);
+            var product = _productRepository.GetExistingById(new ProductId(productId));
 
             warehouse.IncreaseStock(
-                product.Id,
+                product.Id, 
                 new StockQuantity(quantity));
         }
 

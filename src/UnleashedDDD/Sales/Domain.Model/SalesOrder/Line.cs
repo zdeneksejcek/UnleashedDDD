@@ -6,6 +6,8 @@ namespace UnleashedDDD.Sales.Domain.Model.SalesOrder
 {
     public class Line : Entity
     {
+        public SalesOrderId SalesOrder { get; private set; }
+
         public LineId Id { get; private set; }
 
         public ProductId Product { get; private set; }
@@ -15,8 +17,6 @@ namespace UnleashedDDD.Sales.Domain.Model.SalesOrder
         public UnitPrice Price { get; set; }
 
         public Comment Comment { get; set; }
-
-        public SalesOrderId SalesOrder { get; private set; }
 
         public SalesTax Tax { get; set; }
 

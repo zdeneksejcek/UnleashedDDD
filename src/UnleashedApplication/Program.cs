@@ -14,27 +14,39 @@ namespace UnleashedApplication
 {
     class Program
     {
+        private static UnleashedCore Core;
+
         static void Main(string[] args)
         {
             var container = InitializeContainer();
 
-            var core = container.Resolve<UnleashedCore>();
+            Core = container.Resolve<UnleashedCore>();
 
-            core.Organizations.RegisterNewUser(new NewUserCommand("zdenek@sejcek.cz", "Zdenek", "Sejcek"));
+            Playground();
+        }
 
-            var newOrganization = core.Organizations.RegisterNewOrganization(new NewOrganizationCommand(Guid.NewGuid(), "My super trooper Org"));
+        static void Playground()
+        {
+            Core.Sales.CompleteSalesOrder(new CompleteSalesOrderCommand(Guid.NewGuid()));
+            
+            Core.Organizations.RegisterNewUser(new NewUserCommand("zdenek@sejcek.cz", "Zdenek", "Sejcek"));
 
-            var so = core.Sales.CreateNewSalesOrder(new NewSalesOrderCommand(Guid.NewGuid(), Guid.NewGuid()));
+            var warehouse = Core.Inventory.CreateNewWarehouse(new NewWarehouseCommand("warehouse name"));
+
+            var newOrganization = Core.Organizations.RegisterNewOrganization(new NewOrganizationCommand(Guid.NewGuid(), "My super trooper Org"));
+
+            var so = Core.Sales.CreateNewSalesOrder(new NewSalesOrderCommand(Guid.NewGuid(), Guid.NewGuid()));
 
             using (var uow = new UnitOfWork())
             {
-                var model = core.Inventory.CreateNewWarehouse(new NewWarehouseCommand("Warehouse"));
+                var model = Core.Inventory.CreateNewWarehouse(new NewWarehouseCommand("Warehouse"));
 
                 uow.Commit();
             }
-            
-            Console.ReadLine();
+
+            Console.ReadLine();            
         }
+
 
         static IContainer InitializeContainer()
         {

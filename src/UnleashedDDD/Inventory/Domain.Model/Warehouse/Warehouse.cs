@@ -19,6 +19,8 @@ namespace UnleashedDDD.Inventory.Domain.Model.Warehouse
 
         public void IncreaseStock(Product.ProductId product, StockQuantity quantity)
         {
+
+
             EventDispacher.Raise(new StockQuantityIncreased(
                     Id, product, quantity
                 ));

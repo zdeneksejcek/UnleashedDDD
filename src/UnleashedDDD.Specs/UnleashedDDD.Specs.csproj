@@ -49,29 +49,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Organizations\RegisterNewOrganization.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>RegisterNewOrganization.feature</DependentUpon>
-    </Compile>
-    <Compile Include="Organizations\RegisterNewUser.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>RegisterNewUser.feature</DependentUpon>
-    </Compile>
-    <Compile Include="Organizations\RegisterNewUserSteps.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="Organizations\RegisterNewOrganization.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>RegisterNewOrganization.feature.cs</LastGenOutput>
-    </None>
-    <None Include="Organizations\RegisterNewUser.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>RegisterNewUser.feature.cs</LastGenOutput>
-    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

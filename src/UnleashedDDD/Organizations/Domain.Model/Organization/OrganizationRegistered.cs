@@ -11,6 +11,5 @@ namespace UnleashedDDD.Organizations.Domain.Model.Organization
         {
             OrganizationId = organizationId;
         }
-
     }
 }

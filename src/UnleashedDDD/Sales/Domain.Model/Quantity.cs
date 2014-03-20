@@ -3,21 +3,21 @@ using OpenDDD.Common;
 
 namespace UnleashedDDD.Sales.Domain.Model
 {
-    public class Quantity : GenericValueObject<int>
+    public class Quantity : GenericValueObject<decimal>
     {
-        public new int Value { get { return base.Value; } }
+        public new decimal Value { get { return base.Value; } }
 
-        public Quantity(int value) : base(value)
+        public Quantity(decimal value) : base(value)
         {
             AssertionConcern.AssertArgumentRange(value, 1, int.MaxValue, "Product quantity must be positive");
         }
 
-        static public implicit operator Quantity(int value)
+        static public implicit operator Quantity(decimal value)
         {
             return new Quantity(value);
         }
 
-        static public implicit operator int(Quantity quantity)
+        static public implicit operator decimal(Quantity quantity)
         {
             return quantity.Value;
         }

@@ -1,5 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
+using OpenDDD;
 using OpenDDD.Common;
 using UnleashedDDD.Inventory.Domain.Model.Warehouse;
 using UnleashedDDD.Sales.Domain.Model;
@@ -12,18 +13,17 @@ namespace UnleashedDDD.Tests.Sales.Domain.Model
     [TestFixture]
     public class SalesOrderTests
     {
+        [SetUp]
+        public void Setup()
+        {
+            CoreInitializer.Initialize();
+        }
+
         private SalesOrder CreateSalesOrder()
         {
             return new SalesOrder(
                 new CustomerId(Guid.NewGuid()),
                 new WarehouseId(Guid.NewGuid()));
-        }
-
-        [Test]
-        [ExpectedException(typeof(ArgumentException), ExpectedMessage = "Organization id cannot be null")]
-        public void InitializeWithNullOrganization_ExpectException()
-        {
-            var order = new SalesOrder(null, null);
         }
 
         [Test]
@@ -50,7 +50,7 @@ namespace UnleashedDDD.Tests.Sales.Domain.Model
         }
 
         [Test]
-        [ExpectedException(typeof(FinishCompletingIsNotAllowedForCurrentState))]
+        [ExpectedException(typeof(UnallowedStateChange))]
         public void FinishCompleting_ExpectOrderContainsUnallocatedLinesException()
         {
             var order = CreateSalesOrder();
@@ -63,19 +63,19 @@ namespace UnleashedDDD.Tests.Sales.Domain.Model
         {
             var order = CreateSalesOrder();
 
-            order.AddLine(
+            order.Lines.Add(
                 new ProductId(Guid.Empty),
                 new Quantity(2),
                 new UnitPrice(100, Currency.NZD),
                 new SalesTax(Guid.NewGuid(), 0.15M));
 
-            order.AddLine(
+            order.Lines.Add(
                 new ProductId(Guid.Empty),
                 new Quantity(5),
                 new UnitPrice(100, Currency.NZD),
                 new SalesTax(Guid.NewGuid(), 0.15M));
 
-            var totals = order.GetTotals();
+            var totals = order.CalculateTotals();
 
             Assert.AreEqual(new MonetaryValue(700, Currency.NZD), totals.SubTotal);
             Assert.AreEqual(new MonetaryValue(105, Currency.NZD), totals.TaxTotal);

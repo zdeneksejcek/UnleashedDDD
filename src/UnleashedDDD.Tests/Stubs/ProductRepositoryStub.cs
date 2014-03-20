@@ -8,7 +8,7 @@ namespace UnleashedDDD.Tests.Stubs
         public Product ShouldReturn { get; set; }
         public bool SaveMethodCalled { get; private set; }
 
-        public Product GetById(ProductId id)
+        public Product GetExistingById(ProductId id)
         {
             return ShouldReturn;
         }

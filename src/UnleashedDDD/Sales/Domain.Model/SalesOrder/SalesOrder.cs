@@ -4,7 +4,6 @@ using OpenDDD;
 using UnleashedDDD.Inventory.Domain.Model.Warehouse;
 using UnleashedDDD.Sales.Domain.Model.Customer;
 using UnleashedDDD.Sales.Domain.Model.SalesOrder.Events;
-using UnleashedDDD.Sales.Domain.Model.SalesOrder.Exceptions;
 
 namespace UnleashedDDD.Sales.Domain.Model.SalesOrder
 {
@@ -12,102 +11,73 @@ namespace UnleashedDDD.Sales.Domain.Model.SalesOrder
     {
         public SalesOrderId Id { get; private set; }
 
-        public Status Status { get; private set; }
+        private Status _status;
+        public Status Status { get { return _status; } private set { _status = value; }}
 
         public CustomerId Customer {get; private set; }
-        public WarehouseId Warehouse { get; set; }
 
-        private readonly Lines _lines;
-        public Lines Lines { get { return _lines; }}
+        private WarehouseId _warehouse;
+        public WarehouseId Warehouse
+        {
+            get { return _warehouse; }
+            set
+            {
+                Status.AssureChangeToOrderIsAllowed();
+                _warehouse = value;
+            }
+        }
 
-        public SalesOrder(CustomerId customer, WarehouseId warehouse)
+        public Lines Lines { get; private set; }
+
+        internal SalesOrder(CustomerId customer, WarehouseId warehouse)
         {
             AssertArgumentNotNull(customer, "Customer id cannot be null");
             AssertArgumentNotNull(warehouse, "Warehouse id cannot be null");
 
             Id = new SalesOrderId(Guid.NewGuid());
             Customer = customer;
-            Warehouse = warehouse;
-            _lines = new Lines(Id);
+            _warehouse = warehouse;
+            
+            Status = Status.CreateOpened();
+            Lines = new Lines(Id, ref _status);
 
             EventDispacher.Raise(new SalesOrderCreated(Id));
         }
 
-        public Line AddLine(ProductId product, Quantity quantity, UnitPrice price, SalesTax tax)
+        public SalesOrder(Memento memento)
         {
-            AssureStateChangeIsAllowed();
-
-            return _lines.AddLine(product, quantity, price, tax);
+            Id = new SalesOrderId(memento.SalesOrderId);
+            Status = Status.FromString(memento.Status);
+            Customer = new CustomerId(memento.CustomerId);
+            Warehouse = new WarehouseId(memento.WarehouseId);
         }
 
-        public void RemoveLine(Line line)
+        public Totals CalculateTotals()
         {
-            _lines.RemoveLine(line);
-        }
-
-        public Totals GetTotals()
-        {
-            return new Totals(_lines);
-        }
-
-        private void AssureStateChangeIsAllowed()
-        {
-            if (Status != Status.Opened)
-                throw new StatusDoesNotAllowChangingState(Id, Status);
+            return new Totals(Lines);
         }
 
         public void StartCompleting()
         {
-            AssureContainsLines();
+            Lines.AssureContainsAnyLines();
+            Status = Status.ChangeTo(Status.StatusEnum.Completing);
 
-            Status = Status.Completing;
+            EventDispacher.Raise(BuildSalesOrderCompletionStartedEvent());
+        }
 
-            EventDispacher.Raise(new SalesOrderCompletionStarted(this.Id.Id));
+        private SalesOrderCompletionStarted BuildSalesOrderCompletionStartedEvent()
+        {
+            var lines = Lines.Select(p => new SalesOrderCompletionStarted.LineWithProductAndQuantity(p.Id.Id, p.Product.Id,p.Quantity.Value)).ToArray();
+
+            return new SalesOrderCompletionStarted(Id.Id, lines);
         }
 
         public void FinishCompleting()
         {
-            AssureOrderIsCompleting();
-            AssureAllLinesAllocated();
+            Status = Status.ChangeTo(Status.StatusEnum.Completed);
+            Lines.AssureAllLinesAllocated();
 
-            Status = Status.Completed;
-
-            EventDispacher.Raise(
-                new SalesOrderCompleted(Id));
+            EventDispacher.Raise(new SalesOrderCompleted(Id));
         }
-
-        private void AssureOrderIsCompleting()
-        {
-            if (Status != Status.Completing)
-                throw new FinishCompletingIsNotAllowedForCurrentState();
-        }
-
-        private void AssureAllLinesAllocated()
-        {
-            var containsUnallocatedLine = _lines.Any(p => p.Status != LineStatus.Allocated);
-
-            if (containsUnallocatedLine)
-                throw new OrderContainsUnallocatedLines();
-        }
-
-        private void AssureContainsLines()
-        {
-            if (!_lines.Any())
-                throw new NoLine();
-        }
-
-#region restore
-        private SalesOrder(SalesOrderId id)
-        {
-            Id = id;
-        }
-
-        public static SalesOrder Restore(Guid id)
-        {
-            return new SalesOrder(new SalesOrderId(id));
-        }
-
-#endregion
-
     }
 }

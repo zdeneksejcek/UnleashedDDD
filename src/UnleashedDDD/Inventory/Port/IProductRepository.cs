@@ -5,7 +5,7 @@ namespace UnleashedDDD.Inventory.Port
 {
     public interface IProductRepository : IExternalImplementationRequired
     {
-        Product GetById(ProductId id);
+        Product GetExistingById(ProductId id);
 
         void Save(Product product);
     }

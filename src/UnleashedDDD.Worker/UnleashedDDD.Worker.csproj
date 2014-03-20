@@ -60,6 +60,10 @@
       <Project>{44c0aed4-8f26-4bd8-bb9f-36c84a2d17e9}</Project>
       <Name>UnleashedDDD.Infrastructure.InMemory.Multitenent</Name>
     </ProjectReference>
+    <ProjectReference Include="..\UnleashedDDD.Main\UnleashedDDD.Main.csproj">
+      <Project>{af9504a8-0481-4ac1-975f-dbd867c9ff82}</Project>
+      <Name>UnleashedDDD.Main</Name>
+    </ProjectReference>
     <ProjectReference Include="..\UnleashedDDD.QuickBooks\UnleashedDDD.QuickBooks.csproj">
       <Project>{ed7d0f85-ca35-460b-ab37-72e1e3e9d962}</Project>
       <Name>UnleashedDDD.QuickBooks</Name>

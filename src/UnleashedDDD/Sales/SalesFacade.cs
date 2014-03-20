@@ -17,5 +17,15 @@ namespace UnleashedDDD.Sales
             return Core.ExecuteWithResult<NewSalesOrderCommand, NewSalesOrderModel>(command);
         }
 
+        public void CompleteSalesOrder(CompleteSalesOrderCommand command)
+        {
+            Core.Execute(command);
+        }
+
+        public void CompleteSalesOrderEventually(CompleteSalesOrderCommand command)
+        {
+            Core.Execute(command);
+        }
+
     }
 }

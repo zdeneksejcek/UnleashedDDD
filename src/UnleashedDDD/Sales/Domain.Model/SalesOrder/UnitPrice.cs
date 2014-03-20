@@ -6,7 +6,7 @@ namespace UnleashedDDD.Sales.Domain.Model.SalesOrder
     {
         public UnitPrice(decimal amount, Currency currency) : base(amount, currency)
         {
-
+            
         }
     }
 }

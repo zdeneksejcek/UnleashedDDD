@@ -30,9 +30,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="OpenDDD">
-      <HintPath>..\..\..\OpenSource\OpenDDD\src\OpenDDD\bin\Debug\OpenDDD.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -59,6 +56,7 @@
     <Compile Include="Accounting\Port\IConfigurationRepository.cs" />
     <Compile Include="Accounting\Port\Model\ProviderAccount.cs" />
     <Compile Include="Accounting\Port\Model\ProviderConfiguration.cs" />
+    <Compile Include="Accounting\Port\Model\ProviderCurrency.cs" />
     <Compile Include="Accounting\Port\Model\ProviderTax.cs" />
     <Compile Include="Inventory\Application\EventHandlers\NewWarehouseHandler.cs" />
     <Compile Include="Inventory\Domain.Model\Warehouse\WarehouseCreated.cs" />
@@ -81,7 +79,7 @@
     <Compile Include="Inventory\Port\IWarehouseRepository.cs" />
     <Compile Include="Inventory\Domain.Model\Warehouse\WarehouseName.cs" />
     <Compile Include="Inventory\Domain.Model\Warehouse\Warehouse.cs" />
-    <Compile Include="Inventory\Application\EventHandlers\SalesOrderCompletionStartedHandler.cs" />
+    <Compile Include="Inventory\Application\EventHandlers\ProductAllocationStartedHandler.cs" />
     <Compile Include="Organizations\Domain.Model\Organization\Plans\Business.cs" />
     <Compile Include="Organizations\Domain.Model\Organization\Plans\Demo.cs" />
     <Compile Include="Organizations\Domain.Model\Organization\Plans\Enterprise.cs" />
@@ -108,7 +106,15 @@
     <Compile Include="Organizations\Port\IUserByOrganizationQueryRetriever.cs" />
     <Compile Include="Organizations\Port\IUserRepository.cs" />
     <Compile Include="Organizations\Port\Model\UserQueryResult.cs" />
+    <Compile Include="Sales\Application\Commands\ChangeLineQuantityCommand.cs" />
+    <Compile Include="Sales\Application\Commands\CompleteSalesOrderCommand.cs" />
     <Compile Include="Sales\Application\Commands\RemoveSalesOrderLineCommand.cs" />
+    <Compile Include="Sales\Application\Exceptions\OrderDoesNotExist.cs" />
+    <Compile Include="Sales\Domain.Model\SalesOrder\Exceptions\ModificationOfCompletedOrderIsNoAllowed.cs" />
+    <Compile Include="Sales\Domain.Model\SalesOrder\Exceptions\ModificationOfOrderIsNoAllowedWhileBeingCompleted.cs" />
+    <Compile Include="Sales\Domain.Model\SalesOrder\Exceptions\UnallowedStateChange.cs" />
+    <Compile Include="Sales\Domain.Model\SalesOrder\Memento.cs" />
+    <Compile Include="Sales\Domain.Model\SalesOrder\SalesOrderBuilder.cs" />
     <Compile Include="Sales\Port\IAccountingSalesTaxes.cs" />
     <Compile Include="Sales\Domain.Model\SalesTax.cs" />
     <Compile Include="Sales\SalesFacade.cs" />
@@ -139,7 +145,6 @@
     <Compile Include="Sales\Domain.Model\SalesOrder\Events\SalesOrderCreated.cs" />
     <Compile Include="Sales\Domain.Model\SalesOrder\Exceptions\MultipleCurrenciesNotSupported.cs" />
     <Compile Include="Sales\Domain.Model\SalesOrder\Id.cs" />
-    <Compile Include="Sales\Domain.Model\SalesOrder\Exceptions\StatusDoesNotAllowChangingState.cs" />
     <Compile Include="Sales\Domain.Model\SalesOrder\Status.cs" />
     <Compile Include="Sales\Domain.Model\SalesOrder\Totals.cs" />
     <Compile Include="Sales\Domain.Model\SalesOrder\UnitPrice.cs" />

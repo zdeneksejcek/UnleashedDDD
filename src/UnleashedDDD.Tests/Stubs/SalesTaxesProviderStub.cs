@@ -6,6 +6,8 @@ namespace UnleashedDDD.Tests.Stubs
 {
     public class SalesTaxesProviderStub : IProvidesSalesTaxes
     {
+        public SalesTax ShouldReturn { get; set; }
+
         public SalesTax[] GetTaxes()
         {
             throw new NotImplementedException();
@@ -13,7 +15,7 @@ namespace UnleashedDDD.Tests.Stubs
 
         public SalesTax GetTax(Guid id)
         {
-            throw new NotImplementedException();
+            return ShouldReturn;
         }
     }
 }

@@ -9,7 +9,7 @@ namespace UnleashedDDD.Infrastructure.InMemory.Multitenent.Inventory
     {
         private List<Product> _list = new List<Product>();
 
-        public Product GetById(ProductId id)
+        public Product GetExistingById(ProductId id)
         {
             return _list.FirstOrDefault(p => p.Id.Id == id.Id);
         }

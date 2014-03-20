@@ -11,23 +11,27 @@ namespace UnleashedDDD.Sales.Domain.Model.SalesOrder
 
         private SalesOrderId SalesOrder { get; set; }
 
-        internal Lines(SalesOrderId salesOrder)
+        private readonly Status OrderStatus;
+
+        internal Lines(SalesOrderId salesOrder, ref Status orderStatus)
         {
             SalesOrder = salesOrder;
+            OrderStatus = orderStatus;
         }
 
-        public Line GetLine(LineId lineId)
+        public Line Get(LineId lineId)
         {
-            var line = _lines.FirstOrDefault(p => p.Id == lineId);
+            var line = _lines.FirstOrDefault(p => p.Id.Id == lineId.Id);
             if (line == null)
                 throw new LineDoesNotExist();
 
             return line;
         }
 
-        internal Line AddLine(ProductId product, Quantity quantity, UnitPrice price, SalesTax tax)
+        public Line Add(ProductId product, Quantity quantity, UnitPrice price, SalesTax tax)
         {
             AssureSameLineCurrency(price.Currency);
+            OrderStatus.AssureChangeToOrderIsAllowed();
 
             var line = new Line(SalesOrder, product, quantity, price, tax);
             _lines.Add(line);
@@ -44,6 +48,20 @@ namespace UnleashedDDD.Sales.Domain.Model.SalesOrder
                 throw new MultipleCurrenciesNotSupported(SalesOrder, currency);
         }
 
+        public void AssureAllLinesAllocated()
+        {
+            var containsUnallocatedLine = _lines.Any(p => p.Status != LineStatus.Allocated);
+
+            if (containsUnallocatedLine)
+                throw new OrderContainsUnallocatedLines();
+        }
+
+        public void AssureContainsAnyLines()
+        {
+            if (!_lines.Any())
+                throw new NoLine();
+        }
+
         internal Currency GetSalesOrderCurrency()
         {
             var firstLine = _lines.FirstOrDefault();
@@ -51,8 +69,10 @@ namespace UnleashedDDD.Sales.Domain.Model.SalesOrder
             return firstLine != null ? firstLine.Price.Currency : Currency.Unknown;
         }
 
-        internal void RemoveLine(Line line)
+        internal void Remove(Line line)
         {
+            OrderStatus.AssureChangeToOrderIsAllowed();
+
             _lines.Remove(line);
         }
 

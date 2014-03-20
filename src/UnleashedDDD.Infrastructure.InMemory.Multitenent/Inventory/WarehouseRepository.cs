@@ -16,7 +16,8 @@ namespace UnleashedDDD.Infrastructure.InMemory.Multitenent.Inventory
 
         public Warehouse GetById(WarehouseId id)
         {
-            return _list.FirstOrDefault(p => p.Id.Id == id.Id);
+            var warehouse = _list.FirstOrDefault(p => p.Id.Id == id.Id);
+            return warehouse;
         }
     }
 }
