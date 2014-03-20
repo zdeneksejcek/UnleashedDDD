@@ -27,7 +27,7 @@ namespace UnleashedApplication
 
         static void Playground()
         {
-            Core.Sales.CompleteSalesOrder(new CompleteSalesOrderCommand(Guid.NewGuid()));
+            //Core.Sales.CompleteSalesOrder(new CompleteSalesOrderCommand(Guid.NewGuid()));
             
             Core.Organizations.RegisterNewUser(new NewUserCommand("zdenek@sejcek.cz", "Zdenek", "Sejcek"));
 

@@ -30,9 +30,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="OpenDDD, Version=0.0.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\OpenSource\OpenDDD\src\OpenDDD\bin\Debug\OpenDDD.dll</HintPath>
+    <Reference Include="OpenDDD">
+      <HintPath>..\packages\OpenDDD.0.0.6\lib\net45\OpenDDD.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -60,6 +59,9 @@
       <Project>{f0444217-ddb0-43b2-85f7-f5106ae59801}</Project>
       <Name>UnleashedDDD</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

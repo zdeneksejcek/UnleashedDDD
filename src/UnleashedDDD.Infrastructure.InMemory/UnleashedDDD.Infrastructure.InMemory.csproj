@@ -31,7 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="OpenDDD">
-      <HintPath>..\..\..\OpenSource\OpenDDD\src\OpenDDD\bin\Debug\OpenDDD.dll</HintPath>
+      <HintPath>..\packages\OpenDDD.0.0.6\lib\net45\OpenDDD.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -52,7 +52,9 @@
     <Compile Include="Queue.cs" />
     <Compile Include="Sales\SalesOrderRepository.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UnleashedDDD\UnleashedDDD.csproj">
       <Project>{F0444217-DDB0-43B2-85F7-F5106AE59801}</Project>
