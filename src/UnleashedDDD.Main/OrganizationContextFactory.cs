@@ -1,5 +1,5 @@
 ﻿using System;
-using UnleashedDDD.Infrastructure.InMemory.Multitenent;
+using UnleashedDDD.Infrastructure.Azure;
 
 namespace UnleashedDDD.Main
 {

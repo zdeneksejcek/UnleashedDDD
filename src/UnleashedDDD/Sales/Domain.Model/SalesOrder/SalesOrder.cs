@@ -7,6 +7,7 @@ using UnleashedDDD.Sales.Domain.Model.SalesOrder.Events;
 
 namespace UnleashedDDD.Sales.Domain.Model.SalesOrder
 {
+    [Serializable]
     public class SalesOrder : Aggregate
     {
         public SalesOrderId Id { get; private set; }
@@ -50,6 +51,11 @@ namespace UnleashedDDD.Sales.Domain.Model.SalesOrder
             Status = Status.FromString(memento.Status);
             Customer = new CustomerId(memento.CustomerId);
             Warehouse = new WarehouseId(memento.WarehouseId);
+        }
+
+        public Memento GetMemento()
+        {
+            return new Memento(Id.Id, Status.Value.ToString(), Customer.Id, Warehouse.Id, new Memento.Line[0]);
         }
 
         public Totals CalculateTotals()

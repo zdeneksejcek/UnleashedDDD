@@ -18,14 +18,15 @@ namespace UnleashedDDD.Organizations.Domain.Model.User
 
         #region restore
 
-        private User(UserId id)
+        private User(Guid id, string email)
         {
-            
+            Id = new UserId(id);
+            Email = new UserEmail(email);
         }
 
-        public static User Restore(UserId id)
+        public static User Restore(Guid id, string email)
         {
-            return new User(id);
+            return new User(id, email);
         }
 
         #endregion

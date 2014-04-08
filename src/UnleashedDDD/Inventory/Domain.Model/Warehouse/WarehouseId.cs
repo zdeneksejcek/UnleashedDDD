@@ -5,6 +5,10 @@ namespace UnleashedDDD.Inventory.Domain.Model.Warehouse
 {
     public class WarehouseId : IdValueObject
     {
-        public WarehouseId(Guid id) : base(id) { }
+        public WarehouseId(Guid id) : base(id)
+        {
+            if (Guid.Empty == id)
+                throw new Exception();
+        }
     }
 }

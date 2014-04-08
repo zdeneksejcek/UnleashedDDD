@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Reflection;
 using Autofac;
 using OpenDDD;
 using OpenDDD.UnitOfWorkContext;
 using UnleashedDDD;
 using UnleashedDDD.Accounting.Port;
-using UnleashedDDD.Infrastructure.InMemory.Multitenent;
+using UnleashedDDD.Infrastructure.Azure;
 using UnleashedDDD.Inventory.Application.Commands;
 using UnleashedDDD.Main;
 using UnleashedDDD.Organizations.Application.Commands;
@@ -18,7 +19,7 @@ namespace UnleashedApplication
 
         static void Main(string[] args)
         {
-            var container = InitializeContainer();
+            var container = InitializeContainer(typeof(UnleashedDDD.Infrastructure.Azure.Queue).Assembly);
 
             Core = container.Resolve<UnleashedCore>();
 
@@ -28,8 +29,11 @@ namespace UnleashedApplication
         static void Playground()
         {
             //Core.Sales.CompleteSalesOrder(new CompleteSalesOrderCommand(Guid.NewGuid()));
-            
-            Core.Organizations.RegisterNewUser(new NewUserCommand("zdenek@sejcek.cz", "Zdenek", "Sejcek"));
+
+            for (int i = 0; i < 50; i++)
+                Core.Sales.CreateNewSalesOrder(new NewSalesOrderCommand(Guid.NewGuid(), Guid.NewGuid()));
+
+                //Core.Organizations.RegisterNewUser(new NewUserCommand("zdenek"+ i.ToString()+"@sejcek.cz", "Zdenek", "Sejcek"));
 
             var warehouse = Core.Inventory.CreateNewWarehouse(new NewWarehouseCommand("warehouse name"));
 
@@ -48,10 +52,9 @@ namespace UnleashedApplication
         }
 
 
-        static IContainer InitializeContainer()
+        static IContainer InitializeContainer(Assembly infrastructureAssembly)
         {
             var coreAssembly = typeof (UnleashedCore).Assembly;
-            var infrastructureAssembly = typeof (Queue).Assembly;
 
             var builder = new ContainerBuilder();
 
@@ -69,6 +72,8 @@ namespace UnleashedApplication
 
             builder.RegisterType<Core>().SingleInstance();
             builder.RegisterType<UnleashedCore>().SingleInstance();
+
+            builder.RegisterType<AzureConfiguration>().As<IAzureConfiguration>();
 
             return builder.Build();
         }

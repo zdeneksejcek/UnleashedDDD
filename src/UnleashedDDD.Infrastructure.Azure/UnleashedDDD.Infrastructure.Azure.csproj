@@ -4,16 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5FB5D792-2084-422B-A27D-95663EC0B29F}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{F4E1A875-4492-4F50-BCEC-8ADF74B8CF51}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>UnleashedApplication</RootNamespace>
-    <AssemblyName>UnleashedApplication</AssemblyName>
+    <RootNamespace>UnleashedDDD.Infrastructure.Azure</RootNamespace>
+    <AssemblyName>UnleashedDDD.Infrastructure.Azure</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -32,15 +30,20 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Autofac">
-      <HintPath>..\packages\Autofac.3.3.0\lib\net40\Autofac.dll</HintPath>
+    <Reference Include="Microsoft.WindowsAzure.Storage, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Program Files\Microsoft SDKs\Windows Azure\.NET SDK\v2.2\ref\Microsoft.WindowsAzure.Storage.dll</HintPath>
     </Reference>
     <Reference Include="OpenDDD">
       <HintPath>..\packages\OpenDDD.0.0.6\lib\net45\OpenDDD.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Services.Client" />
+    <Reference Include="System.Spatial, Version=5.6.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\System.Spatial.5.6.1\lib\net40\System.Spatial.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -48,32 +51,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AzureConfiguration.cs" />
-    <Compile Include="HandlersConfiguration.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="Accounting\ConfigurationRepository.cs" />
+    <Compile Include="Accounting\SalesTaxesProvider.cs" />
+    <Compile Include="BaseTableRepository.cs" />
+    <Compile Include="IAzureConfiguration.cs" />
+    <Compile Include="Inventory\ProductRepository.cs" />
+    <Compile Include="Inventory\WarehouseRepository.cs" />
+    <Compile Include="IOrganizationContextFactory.cs" />
+    <Compile Include="SerializedEntity.cs" />
+    <Compile Include="OrganizationContext.cs" />
+    <Compile Include="Organizations\OrganizationRepository.cs" />
+    <Compile Include="Organizations\UserRepository.cs" />
+    <Compile Include="Organizations\UserTableEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Queue.cs" />
+    <Compile Include="Sales\SalesOrderRepository.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\UnleashedDDD.Infrastructure.Azure\UnleashedDDD.Infrastructure.Azure.csproj">
-      <Project>{f4e1a875-4492-4f50-bcec-8adf74b8cf51}</Project>
-      <Name>UnleashedDDD.Infrastructure.Azure</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\UnleashedDDD.Main\UnleashedDDD.Main.csproj">
-      <Project>{af9504a8-0481-4ac1-975f-dbd867c9ff82}</Project>
-      <Name>UnleashedDDD.Main</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\UnleashedDDD.QuickBooks\UnleashedDDD.QuickBooks.csproj">
-      <Project>{ED7D0F85-CA35-460B-AB37-72E1E3E9D962}</Project>
-      <Name>UnleashedDDD.QuickBooks</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\UnleashedDDD.Xero\UnleashedDDD.Xero.csproj">
-      <Project>{5D9325E0-ECF4-4CDE-9030-F2E3CD22878D}</Project>
-      <Name>UnleashedDDD.Xero</Name>
-    </ProjectReference>
     <ProjectReference Include="..\UnleashedDDD\UnleashedDDD.csproj">
       <Project>{f0444217-ddb0-43b2-85f7-f5106ae59801}</Project>
       <Name>UnleashedDDD</Name>

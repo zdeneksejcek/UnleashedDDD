@@ -52,9 +52,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\UnleashedDDD.Infrastructure.InMemory.Multitenent\UnleashedDDD.Infrastructure.InMemory.Multitenent.csproj">
-      <Project>{44c0aed4-8f26-4bd8-bb9f-36c84a2d17e9}</Project>
-      <Name>UnleashedDDD.Infrastructure.InMemory.Multitenent</Name>
+    <ProjectReference Include="..\UnleashedDDD.Infrastructure.Azure\UnleashedDDD.Infrastructure.Azure.csproj">
+      <Project>{f4e1a875-4492-4f50-bcec-8adf74b8cf51}</Project>
+      <Name>UnleashedDDD.Infrastructure.Azure</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnleashedDDD.QuickBooks\UnleashedDDD.QuickBooks.csproj">
       <Project>{ed7d0f85-ca35-460b-ab37-72e1e3e9d962}</Project>

@@ -3,6 +3,7 @@ using OpenDDD.Common;
 
 namespace UnleashedDDD.Sales.Domain.Model.SalesOrder
 {
+    [Serializable]
     public class Memento
     {
         public Guid SalesOrderId { get; private set; }
@@ -24,6 +25,7 @@ namespace UnleashedDDD.Sales.Domain.Model.SalesOrder
             Lines = lines;
         }
 
+        [Serializable]
         public class Tax
         {
             public Guid Id { get; private set; }
@@ -37,6 +39,7 @@ namespace UnleashedDDD.Sales.Domain.Model.SalesOrder
             }
         }
 
+        [Serializable]
         public class Line
         {
             public Guid LineId { get; private set; }
