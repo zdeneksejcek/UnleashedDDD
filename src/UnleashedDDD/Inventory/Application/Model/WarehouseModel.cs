@@ -12,7 +12,7 @@ namespace UnleashedDDD.Inventory.Application.Model
         public WarehouseModel(Warehouse warehouse)
         {
             Id = warehouse.Id.Id;
-            Name = warehouse.Name.Value;
+            Name = warehouse.Name.Name;
         }
     }
 }

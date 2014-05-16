@@ -15,9 +15,9 @@ namespace UnleashedDDD.Infrastructure.Azure.Sales
 
         public void Save(SalesOrder order)
         {
-            var memento = order.GetMemento();
+            //var memento = order.GetMemento();
 
-            base.SaveSerializedEntity(order.Id.Id, memento);
+            //base.SaveSerializedEntity(order.Id.Id, new );
         }
     }
 }

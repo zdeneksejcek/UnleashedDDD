@@ -19,7 +19,7 @@ namespace UnleashedApplication
 
         static void Main(string[] args)
         {
-            var container = InitializeContainer(typeof(UnleashedDDD.Infrastructure.Azure.Queue).Assembly);
+            var container = InitializeContainer(typeof(Queue).Assembly);
 
             Core = container.Resolve<UnleashedCore>();
 
@@ -30,7 +30,7 @@ namespace UnleashedApplication
         {
             //Core.Sales.CompleteSalesOrder(new CompleteSalesOrderCommand(Guid.NewGuid()));
 
-            for (int i = 0; i < 50; i++)
+            for (var i = 0; i < 50; i++)
                 Core.Sales.CreateNewSalesOrder(new NewSalesOrderCommand(Guid.NewGuid(), Guid.NewGuid()));
 
                 //Core.Organizations.RegisterNewUser(new NewUserCommand("zdenek"+ i.ToString()+"@sejcek.cz", "Zdenek", "Sejcek"));

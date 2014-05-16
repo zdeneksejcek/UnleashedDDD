@@ -17,5 +17,10 @@ namespace UnleashedDDD.Tests.Stubs
         {
             return ShouldReturn;
         }
+
+        public SalesTax[] GetTaxes(string taxFamily)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

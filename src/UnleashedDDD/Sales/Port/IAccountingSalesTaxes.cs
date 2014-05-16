@@ -7,6 +7,9 @@ namespace UnleashedDDD.Sales.Port
     public interface IProvidesSalesTaxes : IExternalImplementationRequired
     {
         SalesTax[] GetTaxes();
+
         SalesTax GetTax(Guid id);
+
+        SalesTax[] GetTaxes(string taxFamily);
     }
 }

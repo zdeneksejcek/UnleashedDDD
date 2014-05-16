@@ -15,5 +15,10 @@ namespace UnleashedDDD.Infrastructure.InMemory.Accounting
         {
             return null;
         }
+
+        public SalesTax[] GetTaxes(string taxFamily)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

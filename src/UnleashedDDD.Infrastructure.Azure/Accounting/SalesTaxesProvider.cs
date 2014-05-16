@@ -15,5 +15,10 @@ namespace UnleashedDDD.Infrastructure.Azure.Accounting
         {
             return null;
         }
+
+        public SalesTax[] GetTaxes(string taxFamily)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -4,6 +4,7 @@ using OpenDDD;
 using UnleashedDDD.Inventory.Domain.Model.Warehouse;
 using UnleashedDDD.Sales.Domain.Model.Customer;
 using UnleashedDDD.Sales.Domain.Model.SalesOrder.Events;
+using UnleashedDDD.Sales.Domain.Model.SalesOrder.Invoices;
 
 namespace UnleashedDDD.Sales.Domain.Model.SalesOrder
 {
@@ -29,6 +30,7 @@ namespace UnleashedDDD.Sales.Domain.Model.SalesOrder
         }
 
         public Lines Lines { get; private set; }
+        public SalesInvoices Invoices { get; private set; }
 
         internal SalesOrder(CustomerId customer, WarehouseId warehouse)
         {
@@ -41,21 +43,9 @@ namespace UnleashedDDD.Sales.Domain.Model.SalesOrder
             
             Status = Status.CreateOpened();
             Lines = new Lines(Id, ref _status);
+            Invoices = new SalesInvoices(this);
 
             EventDispacher.Raise(new SalesOrderCreated(Id));
-        }
-
-        public SalesOrder(Memento memento)
-        {
-            Id = new SalesOrderId(memento.SalesOrderId);
-            Status = Status.FromString(memento.Status);
-            Customer = new CustomerId(memento.CustomerId);
-            Warehouse = new WarehouseId(memento.WarehouseId);
-        }
-
-        public Memento GetMemento()
-        {
-            return new Memento(Id.Id, Status.Value.ToString(), Customer.Id, Warehouse.Id, new Memento.Line[0]);
         }
 
         public Totals CalculateTotals()
